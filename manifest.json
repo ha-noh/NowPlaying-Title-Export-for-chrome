@@ -1,0 +1,13 @@
+{
+	"name": "'Now Playing' Title Export",
+	"description": "Writes the title of an audible Youtube/Souncloud/etc tab to file, for use with programs like OBS.",
+	"version": "1.0",
+	"version_name": "1.0 test",
+
+	"background": {
+		"scripts": ["background.js"],
+		"persistent": false
+	},
+	"permissions": [],
+	"manifest_version": 2
+}
