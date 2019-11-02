@@ -9,18 +9,31 @@ const NowPlayingTitleExport = (function() {
 
 		//ignore site-specific, non-informative titles
 		if(info.title == 'Your stream on SoundCloud') return;
-		write_title_to_file(info.title);
+		write_str_to_window(info.title);
 	});
 
 
 	//write page title to new file
-	function write_title_to_file(title) {
-		//check if tab is open, if not open a new tab and get its id?
-		let w = window.open('');
-		w.document.write(`<html>
-			<head>
-			<title>Now Playing Title Export</title>
-			</head>
-			</html>`);
+	function write_str_to_window(str) {
+		let title = 'Now Playing Title Export';
+
+		//open a new Now Playing tab if it isn't already, else set w to the window object of the open tab
+		//callback function runs even when query finds no matches 
+		chrome.tabs.query({title}, function(tabs){
+			if(tabs.length) {
+
+			} 
+
+			else {
+
+			}
+		});
+
+		
+		// w.document.write(`<html>
+		// 	<head>
+		// 	<title>${title}</title>
+		// 	</head>
+		// 	</html>`);
 	}
 }());
