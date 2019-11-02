@@ -15,9 +15,12 @@ const NowPlayingTitleExport = (function() {
 
 	//write page title to new file
 	function write_title_to_file(title) {
-		//test
-		// alert(title);
+		//check if tab is open, if not open a new tab and get its id?
 		let w = window.open('');
-		//write html
+		w.document.write(`<html>
+			<head>
+			<title>Now Playing Title Export</title>
+			</head>
+			</html>`);
 	}
 }());
