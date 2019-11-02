@@ -23,5 +23,4 @@ const NowPlayingTitleExport = (function() {
 			</head>
 			</html>`);
 	}
-	
 }());
