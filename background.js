@@ -2,14 +2,14 @@ const NowPlayingTitleExport = (function() {
 
 	//choose tab, click action to flag it for use with this extension
 	let selectedTab;
-
+	let flag = false;
 	//listen for updates to flagged tab
 	chrome.tabs.onUpdated.addListener( function(tabId, info, tab) {
 		// if(tabId !== selectedTab) return false;
 
 		//ignore site-specific, non-informative titles
 		if(info.title == 'Your stream on SoundCloud') return;
-		write_str_to_window(info.title);
+		if(!flag) write_str_to_window(info.title);
 	});
 
 
@@ -17,6 +17,8 @@ const NowPlayingTitleExport = (function() {
 	function write_str_to_window(str) {
 		let title = 'Now Playing Title Export';
 
+		flag = true;
+		chrome.windows.create({url: 'test.html'});
 		//open a new Now Playing tab if it isn't already, else set w to the window object of the open tab
 		//callback function runs even when query finds no matches 
 		chrome.tabs.query({title}, function(tabs){
@@ -26,7 +28,7 @@ const NowPlayingTitleExport = (function() {
 
 			else {
 
-			}
+			} 
 		});
 
 		
@@ -36,4 +38,4 @@ const NowPlayingTitleExport = (function() {
 		// 	</head>
 		// 	</html>`);
 	}
-}());
+} ());
