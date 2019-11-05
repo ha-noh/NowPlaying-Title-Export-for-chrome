@@ -1,15 +1,12 @@
 const NowPlayingTitleExport = (function() {
+	let currentTitle = '';
 
-	//choose tab, click action to flag it for use with this extension
-	let selectedTab;
-	let flag = false;
-	//listen for updates to flagged tab
+	//listen for updates to audible tabs
 	chrome.tabs.onUpdated.addListener(function(tabId, info, tab) {
-		// if(tabId !== selectedTab) return false;
 
 		//ignore site-specific, non-informative titles
 		if(info.title == 'Your stream on SoundCloud') return;
-		writeToFile(info.title);
+		if(tab.audible && tab.title != currentTitle) writeToFile(tab.title);
 	});
 
 	function writeToFile(title) {
@@ -18,8 +15,10 @@ const NowPlayingTitleExport = (function() {
 		chrome.downloads.download({
 			url: url,
 			filename: 'NowPlayingExport.txt',
-			conflictAction: 'overwrite'
+			conflictAction: 'overwrite',
+			saveAs: false
 		});
 		//revokeObjectURL() causes download to fail
+		currentTitle = title;
 	}	
 } ());
