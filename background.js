@@ -4,7 +4,7 @@ const NowPlayingTitleExport = (function() {
 	//listen for updates to audible tabs
 	chrome.tabs.onUpdated.addListener(function(tabId, info, tab) {
 		//site-specific titles to ignore
-		const blacklist = /(^Spotify\s)/;
+		const blacklist = /(^Spotify\s)|(\son\sSoundCloud)/;
 		if(tab.title.search(blacklist) >= 0) return;
 
 		//whitelist domains through the regular expression re
