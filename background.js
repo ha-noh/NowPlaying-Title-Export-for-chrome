@@ -3,10 +3,13 @@ const NowPlayingTitleExport = (function() {
 
 	//listen for updates to audible tabs
 	chrome.tabs.onUpdated.addListener(function(tabId, info, tab) {
+		//site-specific titles to ignore
+		const blacklist = /(^Spotify\s)/;
+		if(tab.title.search(blacklist) >= 0) return;
 
-		//ignore site-specific, non-informative titles
-		if(info.title == 'Your stream on SoundCloud') return;
-		if(tab.audible && tab.title != currentTitle) writeToFile(tab.title);
+		//whitelist domains through the regular expression re
+		const whitelist = /(youtube\.com)|(soundcloud\.com)|(spotify\.com)/;
+		if(tab.audible && tab.url.search(whitelist) >= 0 && tab.title != currentTitle) writeToFile(tab.title);
 	});
 
 	function writeToFile(title) {
@@ -18,7 +21,10 @@ const NowPlayingTitleExport = (function() {
 			conflictAction: 'overwrite',
 			saveAs: false
 		});
-		//revokeObjectURL() causes download to fail
+
+		//add listener for download completion to deallocate url
+
+		//store title
 		currentTitle = title;
 	}	
 } ());
