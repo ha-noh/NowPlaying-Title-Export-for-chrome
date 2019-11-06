@@ -1,8 +1,8 @@
 {
 	"name": "'Now Playing' Title Export",
 	"description": "Writes the title of an audible Youtube/Souncloud/etc tab to a plain .txt file for OBS to read.",
-	"version": "0.3",
-	"version_name": "0.3 test",
+	"version": "0.31",
+	"version_name": "0.31 test",
 	"manifest_version": 2,
 
 	"background": {

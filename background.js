@@ -5,23 +5,31 @@ const NowPlayingTitleExport = (function() {
 
 	chrome.browserAction.onClicked.addListener(function() {
 		extensionToggle = !extensionToggle;
+
 		if(extensionToggle) {
-			//programatically change browser action icons here
 			alert('Now Playing export enabled');
+
+			//disable chrome download shelf when extension is active
 			chrome.downloads.setShelfEnabled(false);
+
+			//listen for updates to audible tabs
+			chrome.tabs.onUpdated.addListener(onTabUpdate);
+
+			//programatically change browser action icons here
 		}
 
 		else {
 			alert('Now Playing export disabled');
+
 			//re-enable chrome download shelf when the extension is not active
 			chrome.downloads.setShelfEnabled(true);
+
+			//remove listener when extension is not active 
+			chrome.tabs.onUpdated.removeListener(onTabUpdate);
 		}
 	});
 
-	//listen for updates to audible tabs
-	chrome.tabs.onUpdated.addListener(function(tabId, info, tab) {
-		if(!extensionToggle) return;
-
+	function onTabUpdate(tabId, info, tab) {
 		//site-specific titles to ignore
 		const blacklist = /(^Spotify\s)|(\son\sSoundCloud)|(^YouTube$)/;
 		if(tab.title.search(blacklist) >= 0) return;
@@ -29,7 +37,7 @@ const NowPlayingTitleExport = (function() {
 		//whitelist domains through the regular expression re
 		const whitelist = /(youtube\.com)|(soundcloud\.com)|(spotify\.com)/;
 		if(tab.audible && tab.url.search(whitelist) >= 0 && tab.title != currentTitle) writeToFile(tab.title);
-	});
+	}
 
 	function writeToFile(title) {
 		const blob = new Blob([title], {type: 'text/plain'});
