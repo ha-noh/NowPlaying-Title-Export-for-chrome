@@ -1,10 +1,24 @@
 const NowPlayingTitleExport = (function() {
 	let currentTitle = '';
+	let extensionToggle = false;
+
+	chrome.browserAction.onClicked.addListener(function() {
+		extensionToggle = !extensionToggle;
+		if(extensionToggle) {
+			//programatically change browser action icons here
+			alert('Now Playing export enabled');
+		}
+
+		else {
+			alert('Now Playing export disabled');
+		}
+	});
 
 	//listen for updates to audible tabs
 	chrome.tabs.onUpdated.addListener(function(tabId, info, tab) {
+		if(!extensionToggle) return;
 		//site-specific titles to ignore
-		const blacklist = /(^Spotify\s)|(\son\sSoundCloud)/;
+		const blacklist = /(^Spotify\s)|(\son\sSoundCloud)|(^YouTube$)/;
 		if(tab.title.search(blacklist) >= 0) return;
 
 		//whitelist domains through the regular expression re
