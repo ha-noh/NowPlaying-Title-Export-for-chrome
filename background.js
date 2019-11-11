@@ -1,31 +1,31 @@
 const NowPlayingTitleExport = (function() {
 	let currentTitle = '';
-	let extensionToggle = false;
+	let extensionToggle = true;
 	
+	chrome.tabs.onUpdated.addListener(onTabUpdate);
 
 	chrome.browserAction.onClicked.addListener(function() {
 		extensionToggle = !extensionToggle;
 
 		if(extensionToggle) {
-			alert('Now Playing export enabled');
-
 			//disable chrome download shelf when extension is active
 			chrome.downloads.setShelfEnabled(false);
 
-			//listen for updates to audible tabs
+			//retoggle listener for tab updates 
 			chrome.tabs.onUpdated.addListener(onTabUpdate);
 
 			//programatically change browser action icons here
+			chrome.browserAction.setIcon({path: 'icons/on-64.png'});
 		}
 
 		else {
-			alert('Now Playing export disabled');
-
 			//re-enable chrome download shelf when the extension is not active
 			chrome.downloads.setShelfEnabled(true);
 
-			//remove listener when extension is not active 
+			//toggle listener off when extension is not active 
 			chrome.tabs.onUpdated.removeListener(onTabUpdate);
+
+			chrome.browserAction.setIcon({path: 'icons/off-64.png'});
 		}
 	});
 
