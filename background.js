@@ -25,6 +25,7 @@ const NowPlayingTitleExport = (function() {
 			//toggle listener off when extension is not active 
 			chrome.tabs.onUpdated.removeListener(onTabUpdate);
 
+			//change to "off" state icon
 			chrome.browserAction.setIcon({path: 'icons/off-64.png'});
 		}
 	});
@@ -34,7 +35,7 @@ const NowPlayingTitleExport = (function() {
 		const blacklist = /(^Spotify\s)|(\son\sSoundCloud)|(^YouTube$)/;
 		if(tab.title.search(blacklist) >= 0) return;
 
-		//whitelist domains through the regular expression re
+		//whitelist domains whose titles should update the file
 		const whitelist = /(youtube\.com)|(soundcloud\.com)|(spotify\.com)/;
 		if(tab.audible && tab.url.search(whitelist) >= 0 && tab.title != currentTitle) writeToFile(tab.title);
 	}
@@ -57,7 +58,10 @@ const NowPlayingTitleExport = (function() {
 			//if download complete or interrupted
 			if(downloadDelta.id === currentId && downloadDelta.state && downloadDelta.state !== 'in_progress') {
 				URL.revokeObjectURL(url);
+
+				//remove event listener
 				chrome.downloads.onChanged.removeListener(onChange);
+
 				//remove download from history to prevent clutter
 				chrome.downloads.erase({id: downloadDelta.id}, function(){});
 			}
