@@ -17,7 +17,7 @@
 5. For use with OBS: add a text source and point it to the location of this new text file.
 
 ## Notes
-* Chrome's download shelf (the bar that appears at the bottom of the browser everytime you download a file) is disabled while the extension is on. If you download any files while the extension is running, they will not appear at the bottom (though if you check your download history they will still appear there). I recommend turning the extension off when it's not in use.
+* Chrome's download shelf (the bar that appears at the bottom of the browser everytime you download a file) is disabled for the brief time while the .txt file is being downloaded. If you are downloading another file when a tab update occurs, or start a download while a tab updates, the download will not *visually* appear at the bottom. The download will not be interrupted however, and if you open up `chrome://downloads` you will see your other download(s) there.
 * The extension will download a new file every time a tab in Chrome produces audio, *if* its title differs from the title currently on file. If you pause and play the same video/song, a new file will not be downloaded.
 * If you have multiple tabs producing audio, each time a tab updates its title it will overwrite your current `NowPlayingExport.txt` file.
 * If you run into a situation where the .txt file does not reflect the current tab title, try forcibly updating that specific tab. There are many ways to achieve this, e.g. by pausing the audio and waiting for the tab to be inaudible (loses the speaker icon in the tab title), refreshing, muting and unmuting the tab in chrome, etc.

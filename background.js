@@ -8,9 +8,6 @@ const NowPlayingTitleExport = (function() {
 		extensionToggle = !extensionToggle;
 
 		if(extensionToggle) {
-			//disable chrome download shelf when extension is active
-			chrome.downloads.setShelfEnabled(false);
-
 			//retoggle listener for tab updates 
 			chrome.tabs.onUpdated.addListener(onTabUpdate);
 
@@ -19,9 +16,6 @@ const NowPlayingTitleExport = (function() {
 		}
 
 		else {
-			//re-enable chrome download shelf when the extension is not active
-			chrome.downloads.setShelfEnabled(true);
-
 			//toggle listener off when extension is not active 
 			chrome.tabs.onUpdated.removeListener(onTabUpdate);
 
@@ -35,7 +29,7 @@ const NowPlayingTitleExport = (function() {
 		const blacklist = /(^Spotify\s)|(\son\sSoundCloud)|(^YouTube$)/;
 		if(tab.title.search(blacklist) >= 0) return;
 
-		//whitelist domains whose titles should update the file
+		//whitelist domains that should trigger a file update
 		const whitelist = /(youtube\.com)|(soundcloud\.com)|(spotify\.com)/;
 		if(tab.audible && tab.url.search(whitelist) >= 0 && tab.title != currentTitle) writeToFile(tab.title);
 	}
@@ -45,6 +39,8 @@ const NowPlayingTitleExport = (function() {
 		const url = URL.createObjectURL(blob);
 		let currentId;
 
+		//disable chrome download shelf when a write is occurring 
+		chrome.downloads.setShelfEnabled(false);
 		chrome.downloads.download({
 			url: url,
 			filename: 'NowPlayingExport.txt',
@@ -64,6 +60,9 @@ const NowPlayingTitleExport = (function() {
 
 				//remove download from history to prevent clutter
 				chrome.downloads.erase({id: downloadDelta.id}, function(){});
+
+				//re-enable chrome download shelf when write is interrupted or completed
+				chrome.downloads.setShelfEnabled(true);
 			}
 		}
 
