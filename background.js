@@ -2,7 +2,7 @@ const NowPlayingTitleExport = (function() {
 	let currentTitle = '';
 	let extensionToggle = true;
 	
-	chrome.tabs.onUpdated.addListener(onTabUpdate);
+	// chrome.tabs.onUpdated.addListener(onTabUpdate);
 
 	chrome.browserAction.onClicked.addListener(function() {
 		extensionToggle = !extensionToggle;
