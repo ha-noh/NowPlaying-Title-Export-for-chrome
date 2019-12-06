@@ -1,9 +1,11 @@
 const NowPlayingTitleExport = (function() {
 	let currentTitle = '';
-	let extensionToggle = true;
+	//extension starts in off state
+	let extensionToggle = false;
 	
-	chrome.tabs.onUpdated.addListener(onTabUpdate);
+	// chrome.tabs.onUpdated.addListener(onTabUpdate);
 
+	//clicking browser action icon toggles the extension on and off
 	chrome.browserAction.onClicked.addListener(function() {
 		extensionToggle = !extensionToggle;
 
@@ -11,7 +13,7 @@ const NowPlayingTitleExport = (function() {
 			//retoggle listener for tab updates 
 			chrome.tabs.onUpdated.addListener(onTabUpdate);
 
-			//programatically change browser action icons here
+			//change browser action icon to 'on'
 			chrome.browserAction.setIcon({path: 'icons/on-64.png'});
 		}
 
@@ -19,7 +21,7 @@ const NowPlayingTitleExport = (function() {
 			//toggle listener off when extension is not active 
 			chrome.tabs.onUpdated.removeListener(onTabUpdate);
 
-			//change to "off" state icon
+			//change to "off" browser action icon
 			chrome.browserAction.setIcon({path: 'icons/off-64.png'});
 		}
 	});
