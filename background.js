@@ -43,6 +43,8 @@ const NowPlayingTitleExport = (function() {
 
 		//disable chrome download shelf when a write is occurring 
 		chrome.downloads.setShelfEnabled(false);
+
+		//download .txt file and store the download id 
 		chrome.downloads.download({
 			url: url,
 			filename: 'NowPlayingExport.txt',
@@ -51,7 +53,7 @@ const NowPlayingTitleExport = (function() {
 		}, id => currentId = id);
 
 		chrome.downloads.onChanged.addListener(onChange);
-
+		
 		function onChange(downloadDelta) {
 			//if download complete or interrupted
 			if(downloadDelta.id === currentId && downloadDelta.state && downloadDelta.state !== 'in_progress') {
