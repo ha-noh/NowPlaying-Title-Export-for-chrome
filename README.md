@@ -1,5 +1,5 @@
 # Now Playing Title Export for Chrome
- Writes the title of an audible Youtube/Souncloud/etc tab to a plain .txt file. The intent is to have a dynamically updated file that can be read by programs like OBS (Open Broadcaster Software).
+This extension allows streamers to have the title of their music displayed as text in OBS. More specifically, the extension writes the title of an audible Youtube/Souncloud/etc tab to a plain .txt file. OBS (Open Broadcaster Software) can then read the dynamically updating file as a text source.
 
 ## How it works
 * The extension will listen for a Chrome tab of a specific domain (e.g. YouTube, Spotify, SoundCloud) to update, and download a .txt file containing the title of the tab. 
