@@ -16,6 +16,8 @@ This extension allows streamers to have the title of their music displayed as te
 4. The program should appear at the top as `'Now Playing' Title Export`, or something similar. The extension will now download a .txt file called `NowPlayingExport.txt` the next time a chrome tab produces audio. 
 5. For use with OBS: add a text source and point it to the location of this new text file.
 
+**Alternatively,** you can install the extension directly from the Chrome Web Store here (I will try to keep this release up to date): https://chrome.google.com/webstore/detail/now-playing-title-export/bgdgcljgocfdockghjbbikogiolipgnf
+
 ## Notes
 * Chrome's download shelf (the bar that appears at the bottom of the browser everytime you download a file) is disabled for the brief time while the .txt file is being downloaded. If you are downloading another file when a tab update occurs, or start a download while a tab updates, the download will not *visually* appear at the bottom. The download will not be interrupted however, and if you open up `chrome://downloads` you will see your other download(s) there.
 * The extension will download a new file every time a tab in Chrome produces audio, *if* its title differs from the title currently on file. If you pause and play the same video/song, a new file will not be downloaded.
