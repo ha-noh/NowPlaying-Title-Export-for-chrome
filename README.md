@@ -1,8 +1,8 @@
 # Now Playing Title Export for Chrome
-This extension allows streamers to have the title of their music displayed as text in OBS. More specifically, the extension writes the title of an audible Youtube/Souncloud/etc tab to a plain .txt file. OBS (Open Broadcaster Software) can then read the dynamically updating file as a text source.
+This extension allows streamers to have the title & artist for their music displayed as text in OBS. The extension writes the title of a Youtube/Souncloud/etc tab to a plain .txt file, which OBS (Open Broadcaster Software) can then read as a text source.
 
 ## How it works
-* The extension will listen for a Chrome tab of a specific domain (e.g. YouTube, Spotify, SoundCloud) to update, and download a .txt file containing the title of the tab. 
+* The extension will listen for a Chrome tab of a specific domain (e.g. YouTube, Spotify, SoundCloud) to update, and download a .txt file containing the title of the tab. This is done on the assumption that the tab title for these services generally contain both the artist and song name. 
 * Downloads will happen silently and will be removed from the download history upon completion/interruption (so you don't have 50 occurences of `NowPlayingExport.txt` in your history).
 * If a tab is updated and (1) its title has not changed from the last file downloaded, (2) the domain does not match the list of whitelisted domains, or (3) the updated tab title has a blacklisted phrase, a new file will not be downloaded.
 
